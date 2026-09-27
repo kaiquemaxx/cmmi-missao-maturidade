@@ -27,7 +27,7 @@ Hoje o CMMI é mantido pelo **CMMI Institute**, adquirido pela **ISACA** em 2016
 - Criar uma base para **decisões orientadas a dados** (à medida que a organização amadurece).
 - Sustentar **melhoria contínua** de longo prazo, não apenas correções pontuais.
 
-> Gancho para evento: o "objetivo" do jogador (consultor) é justamente perseguir esses objetivos organizacionais — dá pra usar essa lista quase like um "briefing da missão".
+> Gancho para evento: o "objetivo" do jogador (consultor) é justamente perseguir esses objetivos organizacionais — dá pra usar essa lista quase como um "briefing da missão".
 
 ---
 
@@ -134,7 +134,7 @@ Resultados de avaliação (appraisals) podem ser consultados publicamente na bas
 - **Redução de custo operacional:** estudo da PwC apontou até **27% de redução em custos operacionais** em organizações com alta maturidade de processo.
 - **Melhoria de qualidade:** menos retrabalho e defeitos, graças a controles de qualidade mais fortes.
 - **Previsibilidade de prazo e orçamento:** processos padronizados reduzem variabilidade entre projetos/equipes.
-- **Satisfação do cliente:** entregas mais consistentes gerar mais confiança do contratante — herança direta do motivo original de criação do modelo (DoD avaliando fornecedores).
+- **Satisfação do cliente:** entregas mais consistentes geram mais confiança do contratante — herança direta do motivo original de criação do modelo (DoD avaliando fornecedores).
 - **Vantagem competitiva/comercial:** nível CMMI costuma ser exigido em editais e concorrências, especialmente contratos públicos e internacionais.
 - **Base para melhoria contínua:** nos níveis mais altos (4 e 5), a empresa passa a usar dados estatísticos para prever e prevenir problemas, em vez de apenas reagir.
 
