@@ -23,7 +23,11 @@ Fluxo: Evento → Decisão → Consequência → Explicação → Próximo event
 
 ## Como rodar
 
-O jogo é só HTML, CSS e JavaScript (ES modules), sem dependências nem banco de dados. Como o navegador não carrega módulos a partir de `file://`, é preciso servir a pasta:
+O jogo é só HTML, CSS e JavaScript (ES modules), sem dependências nem banco de dados. Como o navegador não carrega módulos a partir de `file://`, é preciso servir a pasta.
+
+**Windows:** dê dois cliques em `iniciar.bat`. Ele usa o Python ou o Node.js (o que estiver instalado), sobe o servidor na porta 8080 e abre o navegador. Para encerrar, feche a janela.
+
+**Outros sistemas, ou pelo terminal:**
 
 ```bash
 npm start            # npx http-server -p 8080 -c-1
@@ -41,6 +45,8 @@ Requer Node.js 20 ou superior. Não há dependências para instalar.
 npm test
 ```
 
+No Windows, também dá para dar dois cliques em `testes.bat`.
+
 | Arquivo | O que cobre |
 |---|---|
 | `tests/efeitos.test.js` | Limites, soma de efeitos, condições, penalidade de moral, níveis |
@@ -55,6 +61,8 @@ npm test
 
 ```
 index.html              Telas: inicial, como jogar, capítulo, jogo e fim
+iniciar.bat             Inicia o jogo no Windows (servidor + navegador)
+testes.bat              Roda os testes no Windows
 css/style.css           Estilos
 js/
   main.js               Ponto de entrada: liga o motor à interface
