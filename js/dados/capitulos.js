@@ -1,9 +1,13 @@
-// Conteúdo do jogo.
+// Capítulos da campanha (um por nível de maturidade do CMMI).
 // Cada evento tem 2 ou 3 opções; cada opção altera os indicadores
-// (maturidade, qualidade, prazo, orcamento) e traz uma explicação ligada ao CMMI.
-// Tipos: "situacao" (decisão empresarial), "conhecimento" (conteúdo CMMI), "crise".
+// (maturidade, qualidade, prazo, orcamento, moral) e traz uma explicação ligada ao CMMI.
+// Campos opcionais de uma opção:
+//   efeitoAtrasado: { eventos, efeitos, texto }  consequência aplicada N decisões depois
+//   condicional:    { indicador, minimo, efeitos, texto }  efeito extra se o indicador estiver no mínimo
+//   desfecho:       usado pelo desafio final ("reprovado" | "ressalvas")
+// Tipos: "situacao" (decisão empresarial), "conhecimento" (conteúdo CMMI).
 
-const CAPITULOS = [
+export const CAPITULOS = [
     {
         numero: 1,
         nome: "Caos",
@@ -26,7 +30,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Definir um processo padrão de desenvolvimento para toda a empresa.",
-                        efeitos: { maturidade: 2, qualidade: 1, prazo: -1 },
+                        efeitos: { maturidade: 2, qualidade: 1, prazo: -1, moral: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { qualidade: 1 }, texto: "O processo padrão começa a render: o retrabalho cai nas entregas seguintes." },
                         resultado:
                             "As equipes resistem no início e as primeiras entregas atrasam, mas o trabalho fica mais previsível e os defeitos diminuem.",
                         conceito: "Nível 1 – Inicial",
@@ -36,7 +41,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Deixar como está. As equipes são experientes e o foco agora é entregar.",
-                        efeitos: { prazo: 1, qualidade: -1 },
+                        efeitos: { prazo: 1, moral: 1, qualidade: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { qualidade: -1 }, texto: "O módulo devolvido pelo cliente volta com uma nova leva de defeitos." },
                         resultado:
                             "No curto prazo nada muda e as entregas seguem. Mas o retrabalho continua, e um cliente importante devolve um módulo cheio de defeitos.",
                         conceito: "Dependência de heróis",
@@ -47,6 +53,7 @@ const CAPITULOS = [
                     {
                         texto: "Mapear primeiro como cada equipe trabalha, antes de mudar qualquer coisa.",
                         efeitos: { maturidade: 1, orcamento: -1 },
+                        condicional: { indicador: "moral", minimo: 6, efeitos: { maturidade: 1 }, texto: "Com a equipe motivada, o mapeamento vira uma proposta de melhoria construída em conjunto." },
                         resultado:
                             "Você entrevista as equipes e documenta as práticas atuais. Custa horas de consultoria, mas agora você sabe onde estão os problemas.",
                         conceito: "Diagnóstico antes da melhoria",
@@ -78,7 +85,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Comprar a ferramenta e obrigar todas as equipes a usá-la.",
-                        efeitos: { maturidade: 1, orcamento: -2 },
+                        efeitos: { maturidade: 1, prazo: 1, orcamento: -2 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { qualidade: -1, moral: -1 }, texto: "O caos digital cobra seu preço: cada equipe configurou a ferramenta de um jeito e ninguém confia nos relatórios." },
                         resultado:
                             "A ferramenta é implantada, mas cada equipe a configura do seu jeito. O caos agora é digital, e caro.",
                         conceito: "Ferramenta não é processo",
@@ -109,7 +117,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Explicar a origem do CMMI à diretoria e propor um programa de melhoria.",
-                        efeitos: { maturidade: 1, orcamento: -1 },
+                        efeitos: { maturidade: 1, prazo: -1 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { orcamento: 2 }, texto: "A diretoria libera a verba do programa de melhoria." },
                         resultado:
                             "A diretoria entende por que clientes exigem o modelo e aprova um orçamento para o programa de melhoria.",
                         conceito: "Origem do CMMI",
@@ -120,7 +129,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Afirmar na proposta que a empresa \"já segue as boas práticas\", sem evidências.",
-                        efeitos: { prazo: 1, qualidade: -1, maturidade: -1 },
+                        efeitos: { prazo: 1, orcamento: 1, qualidade: -1, maturidade: -1 },
                         resultado:
                             "A proposta é desclassificada: o edital pedia o resultado de uma avaliação oficial, não uma declaração. A equipe perde credibilidade.",
                         conceito: "Evidências objetivas",
@@ -130,7 +139,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Desistir do edital e continuar atendendo só clientes privados.",
-                        efeitos: { orcamento: -2, prazo: 1 },
+                        efeitos: { orcamento: -2, prazo: 1, moral: 1 },
                         resultado:
                             "A equipe não fica sobrecarregada, mas a empresa abre mão de uma grande receita, e o concorrente com CMMI leva o contrato.",
                         conceito: "Vantagem competitiva",
@@ -162,7 +171,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Parar um dia para criar um plano com estimativas, cronograma e acompanhamento semanal.",
-                        efeitos: { maturidade: 2, prazo: 1, orcamento: -1 },
+                        efeitos: { maturidade: 2, prazo: -1, orcamento: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: 2 }, texto: "As novas datas se confirmam: com o plano, o projeto recupera o cronograma." },
                         resultado:
                             "O plano mostra o tamanho real do atraso. O cliente não gosta da notícia, mas passa a confiar nas novas datas.",
                         conceito: "Nível 2 – Gerenciado",
@@ -172,7 +182,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Colocar a equipe em horas extras até o sistema ficar pronto.",
-                        efeitos: { prazo: 2, qualidade: -1, orcamento: -1 },
+                        efeitos: { prazo: 3, qualidade: -1, orcamento: -1, moral: -2 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { qualidade: -1 }, texto: "Os bugs das horas extras chegam ao cliente." },
                         resultado:
                             "O projeto avança, mas a equipe fica exausta, os bugs aumentam e o custo com horas extras dispara.",
                         conceito: "Reação sem controle",
@@ -183,6 +194,7 @@ const CAPITULOS = [
                     {
                         texto: "Cortar funcionalidades sem avisar e entregar o que estiver pronto.",
                         efeitos: { prazo: 2, qualidade: -2 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { orcamento: -1 }, texto: "A reclamação formal do cliente vira multa contratual." },
                         resultado:
                             "O prazo é cumprido, mas o cliente descobre que faltam funções combinadas e abre uma reclamação formal.",
                         conceito: "Gestão de requisitos",
@@ -213,7 +225,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Pedir que cada líder avalie a própria equipe.",
-                        efeitos: { prazo: 1, qualidade: -1 },
+                        efeitos: { prazo: 1, moral: 1, qualidade: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { qualidade: -1 }, texto: "Os relatórios dizem que está tudo ótimo, mas os defeitos continuam chegando aos clientes." },
                         resultado:
                             "Os relatórios dizem que está tudo ótimo. Estranho: os defeitos continuam aparecendo.",
                         conceito: "Falta de objetividade",
@@ -223,7 +236,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Automatizar os testes no pipeline para que não seja possível pulá-los.",
-                        efeitos: { maturidade: 1, qualidade: 1, prazo: -1 },
+                        efeitos: { maturidade: 1, qualidade: 1, prazo: -1, moral: 1 },
+                        condicional: { indicador: "qualidade", minimo: 6, efeitos: { maturidade: 1 }, texto: "Com a qualidade já em bom nível, os testes automatizados viram prática de toda a organização." },
                         resultado:
                             "Os testes passam a rodar em todo commit. A configuração leva algumas semanas, mas o \"pulei os testes\" acaba.",
                         conceito: "Institucionalização",
@@ -245,6 +259,7 @@ const CAPITULOS = [
                     {
                         texto: "Representação contínua: focar primeiro na área de Gestão de Requisitos.",
                         efeitos: { maturidade: 1, qualidade: 1, orcamento: -1 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { qualidade: 1 }, texto: "Com requisitos claros, os retrabalhos caem ainda mais." },
                         resultado:
                             "A área de requisitos melhora rápido e os retrabalhos caem bastante. Ainda assim, a empresa não tem um nível de maturidade para apresentar em editais.",
                         conceito: "Representação contínua",
@@ -255,7 +270,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Representação por estágios: seguir o roteiro de níveis de maturidade.",
-                        efeitos: { maturidade: 2, prazo: -1, orcamento: -1 },
+                        efeitos: { maturidade: 2, prazo: -1, orcamento: -1, moral: -1 },
                         resultado:
                             "O roteiro é mais longo e exige esforço em várias áreas ao mesmo tempo, mas leva a um nível de maturidade reconhecido pelo mercado.",
                         conceito: "Representação por estágios",
@@ -266,7 +281,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Pular direto para o Nível 3 e padronizar tudo de uma vez.",
-                        efeitos: { orcamento: -2, qualidade: -1 },
+                        efeitos: { maturidade: 2, orcamento: -2, moral: -2 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { maturidade: -2, qualidade: -1 }, texto: "Ninguém consegue seguir dezenas de processos novos: a padronização de fachada desmorona." },
                         resultado:
                             "As equipes recebem dezenas de novos processos de uma vez. Ninguém consegue segui-los e a iniciativa perde força.",
                         conceito: "Não se pula níveis",
@@ -298,7 +314,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Criar uma biblioteca organizacional de processos, modelos e lições aprendidas.",
-                        efeitos: { maturidade: 2, prazo: 1, orcamento: -1 },
+                        efeitos: { maturidade: 2, orcamento: -2 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: 1 }, texto: "Novos projetos começam em dias, e não em semanas, reaproveitando os modelos da biblioteca." },
                         resultado:
                             "Novos projetos começam em dias, e não em semanas, reaproveitando modelos e aprendizados.",
                         conceito: "Nível 3 – Definido",
@@ -308,7 +325,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Deixar cada projeto livre, desde que cumpra o plano.",
-                        efeitos: { prazo: 1, qualidade: -1 },
+                        efeitos: { prazo: 1, moral: 1, qualidade: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { qualidade: -1 }, texto: "Os mesmos erros se repetem em equipes diferentes." },
                         resultado:
                             "Os projetos seguem entregando, mas os mesmos erros se repetem em equipes diferentes.",
                         conceito: "Nível 2 × Nível 3",
@@ -318,7 +336,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Impor um processo único e rígido, sem nenhuma adaptação.",
-                        efeitos: { maturidade: 1, prazo: -2 },
+                        efeitos: { maturidade: 2, prazo: -2, moral: -2 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: -1 }, texto: "A burocracia do processo rígido atrasa os projetos pequenos." },
                         resultado:
                             "O processo não serve para projetos pequenos, que passam a gastar mais tempo com burocracia do que com código.",
                         conceito: "Adaptação do processo",
@@ -340,6 +359,7 @@ const CAPITULOS = [
                     {
                         texto: "Criar um programa de treinamento organizacional sobre os processos.",
                         efeitos: { maturidade: 1, qualidade: 1, orcamento: -1 },
+                        condicional: { indicador: "moral", minimo: 5, efeitos: { maturidade: 1 }, texto: "A equipe engajada absorve o treinamento e passa a sugerir melhorias no processo." },
                         resultado:
                             "Em poucas semanas, os novatos já trabalham seguindo o processo, e os veteranos voltam às suas tarefas.",
                         conceito: "Treinamento organizacional",
@@ -349,7 +369,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Colocar cada novato para acompanhar um veterano.",
-                        efeitos: { qualidade: 1, prazo: -2 },
+                        efeitos: { qualidade: 1, prazo: -2, moral: 1 },
                         resultado:
                             "Funciona, mas depende do veterano: alguns novatos aprendem o processo, outros aprendem os atalhos.",
                         conceito: "Conhecimento tácito",
@@ -360,6 +380,7 @@ const CAPITULOS = [
                     {
                         texto: "Deixar que aprendam fazendo, sem gastar com treinamento.",
                         efeitos: { orcamento: 1, qualidade: -2 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { moral: -1 }, texto: "Os novatos, frustrados com os erros, começam a perder a motivação." },
                         resultado:
                             "A empresa economiza em treinamento, mas os erros de iniciante chegam aos clientes.",
                         conceito: "Custo da falta de treinamento",
@@ -402,7 +423,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Dizer que é técnico demais e pedir que confiem na consultoria.",
-                        efeitos: { orcamento: -2 },
+                        efeitos: { orcamento: -2, prazo: 1 },
                         resultado:
                             "O conselho desconfia e corta parte da verba do programa.",
                         conceito: "Patrocínio da alta direção",
@@ -433,6 +454,7 @@ const CAPITULOS = [
                     {
                         texto: "Definir métricas ligadas aos objetivos do negócio: prazo, defeitos e satisfação do cliente.",
                         efeitos: { maturidade: 1, qualidade: 1, orcamento: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: 1 }, texto: "As métricas apontam o gargalo real, e resolvê-lo acelera as entregas." },
                         resultado:
                             "As métricas mostram onde estão os gargalos reais, e as decisões passam a ser tomadas com base nelas.",
                         conceito: "Medição alinhada aos objetivos",
@@ -442,7 +464,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Medir linhas de código, como o CEO pediu.",
-                        efeitos: { prazo: 1, qualidade: -2 },
+                        efeitos: { prazo: 1, orcamento: 1, qualidade: -2 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { moral: -1 }, texto: "Os desenvolvedores percebem que são avaliados por uma métrica vazia e se desmotivam." },
                         resultado:
                             "Os desenvolvedores passam a escrever código mais longo, não melhor. O número sobe, e a qualidade cai.",
                         conceito: "Métricas de vaidade",
@@ -452,7 +475,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Medir tudo o que for possível e decidir depois o que usar.",
-                        efeitos: { orcamento: -2 },
+                        efeitos: { maturidade: 2, orcamento: -2, prazo: -1, moral: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { maturidade: -1 }, texto: "Com 200 indicadores, ninguém usa o painel, e a medição é abandonada." },
                         resultado:
                             "O painel ganha 200 indicadores. Ninguém sabe quais importam, e a coleta consome horas toda semana.",
                         conceito: "Medir com propósito",
@@ -471,7 +495,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Usar os dados históricos e técnicas estatísticas para estimar com uma margem de confiança.",
-                        efeitos: { maturidade: 2, prazo: 2, orcamento: -1 },
+                        efeitos: { maturidade: 2, prazo: -1, orcamento: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: 2 }, texto: "O projeto termina dentro da faixa prevista pela estimativa estatística." },
                         resultado:
                             "A estimativa vem com margem de erro conhecida. O projeto termina dentro da faixa prevista.",
                         conceito: "Nível 4 – Gerenciado Quantitativamente",
@@ -481,7 +506,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Estimar pela experiência do líder, como sempre.",
-                        efeitos: { orcamento: 1, prazo: -2 },
+                        efeitos: { orcamento: 1, prazo: -1 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { prazo: -1 }, texto: "O projeto passa 40% do prazo estimado pela experiência do líder." },
                         resultado:
                             "A estimativa sai rápido, mas o projeto passa 40% do prazo previsto.",
                         conceito: "Estimativa sem base",
@@ -491,7 +517,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Dar a estimativa mais baixa possível para garantir o contrato.",
-                        efeitos: { orcamento: 2, prazo: -2, qualidade: -1 },
+                        efeitos: { orcamento: 2, prazo: -1, qualidade: -1, moral: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: -2 }, texto: "O prazo impossível estoura, e o cliente cobra." },
                         resultado:
                             "O contrato é fechado, mas a equipe corre contra um prazo impossível e a qualidade sofre.",
                         conceito: "Compromissos realistas",
@@ -512,7 +539,7 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Mostrar exemplos de empresas avaliadas e como consultar os resultados oficiais.",
-                        efeitos: { orcamento: 2 },
+                        efeitos: { orcamento: 2, prazo: -1 },
                         resultado:
                             "O cliente consulta a base oficial, reconhece empresas de peso e fecha o contrato.",
                         conceito: "Empresas avaliadas",
@@ -533,7 +560,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Prometer ao cliente que a TechNova terá Nível 5 em três meses.",
-                        efeitos: { orcamento: 1, prazo: -2, maturidade: -1 },
+                        efeitos: { orcamento: 3, prazo: -2, maturidade: -1, moral: -1 },
                         resultado:
                             "O cliente assina, mas a equipe passa a correr atrás de uma promessa impossível, pulando etapas do processo.",
                         conceito: "Tempo realista",
@@ -565,7 +592,7 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Fazer uma análise de causa raiz e mudar o processo para prevenir o problema.",
-                        efeitos: { maturidade: 2, qualidade: 2, prazo: -1 },
+                        efeitos: { maturidade: 2, qualidade: 2, prazo: -1, orcamento: -1 },
                         resultado:
                             "A causa era um checklist de integração incompleto. Com o processo corrigido, esse tipo de defeito cai 70%.",
                         conceito: "Análise causal",
@@ -575,7 +602,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Criar uma equipe dedicada só a corrigir bugs de integração.",
-                        efeitos: { qualidade: 1, orcamento: -2 },
+                        efeitos: { qualidade: 1, prazo: 1, orcamento: -2 },
                         resultado:
                             "Os bugs são corrigidos mais rápido, mas continuam surgindo no mesmo ritmo.",
                         conceito: "Corrigir não é prevenir",
@@ -584,7 +611,8 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Aceitar como normal: todo software tem defeitos.",
-                        efeitos: { prazo: 1, qualidade: -2 },
+                        efeitos: { prazo: 1, qualidade: -2, moral: -1 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { orcamento: -1 }, texto: "Clientes desconfiados passam a pedir descontos." },
                         resultado:
                             "Nada muda. Os clientes começam a perguntar se a TechNova é mesmo tão madura quanto diz.",
                         conceito: "Complacência",
@@ -604,7 +632,8 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Fazer um piloto controlado, medir os resultados e só então expandir.",
-                        efeitos: { maturidade: 2, prazo: 2, orcamento: -1 },
+                        efeitos: { maturidade: 2, prazo: -1, orcamento: -1 },
+                        efeitoAtrasado: { eventos: 2, efeitos: { prazo: 2 }, texto: "O piloto se paga: a prática expandida reduz em 35% o tempo de entrega." },
                         resultado:
                             "O piloto confirma um ganho de 35% no tempo de entrega. A prática é adotada com dados que comprovam o resultado.",
                         conceito: "Nível 5 – Em Otimização",
@@ -615,6 +644,7 @@ const CAPITULOS = [
                     {
                         texto: "Adotar em todos os projetos de uma vez.",
                         efeitos: { prazo: 2, qualidade: -2 },
+                        efeitoAtrasado: { eventos: 1, efeitos: { qualidade: -1 }, texto: "Mais projetos quebram em produção." },
                         resultado:
                             "Alguns projetos ficam muito mais rápidos. Outros quebram em produção.",
                         conceito: "Mudança sem controle",
@@ -623,7 +653,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Não mexer: o processo atual já é maduro.",
-                        efeitos: { maturidade: -1, orcamento: -1 },
+                        efeitos: { maturidade: -1, orcamento: 1, moral: 1 },
                         resultado:
                             "Tudo continua estável, enquanto os concorrentes entregam cada vez mais rápido e ganham clientes.",
                         conceito: "Maturidade não é estagnação",
@@ -642,7 +672,7 @@ const CAPITULOS = [
                 opcoes: [
                     {
                         texto: "Apresentar os benefícios medidos: custo, retrabalho, prazos e satisfação dos clientes.",
-                        efeitos: { maturidade: 1, orcamento: 2 },
+                        efeitos: { maturidade: 1, orcamento: 2, prazo: -1 },
                         resultado:
                             "Os números convencem: o programa se paga e ganha verba para mais um ano.",
                         conceito: "Benefícios do CMMI",
@@ -653,7 +683,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Concordar e encerrar o programa para economizar.",
-                        efeitos: { orcamento: 2, maturidade: -2, qualidade: -1 },
+                        efeitos: { orcamento: 3, maturidade: -2, qualidade: -1, moral: -1 },
                         resultado:
                             "Sobra dinheiro no curto prazo, mas sem manutenção os processos começam a se degradar.",
                         conceito: "Melhoria é contínua",
@@ -662,7 +692,7 @@ const CAPITULOS = [
                     },
                     {
                         texto: "Reduzir o programa pela metade.",
-                        efeitos: { orcamento: 1, qualidade: -1 },
+                        efeitos: { orcamento: 1, prazo: 1, qualidade: -1 },
                         resultado:
                             "O programa continua, mas mais lento. Algumas melhorias planejadas ficam para depois.",
                         conceito: "Custo × benefício",
@@ -677,247 +707,3 @@ const CAPITULOS = [
 ];
 
 // Crises: a cada partida, algumas são sorteadas e inseridas nos capítulos 2 a 5.
-const CRISES = [
-    {
-        id: "avaliacao-chegando",
-        tipo: "crise",
-        titulo: "CRISE: a avaliação está chegando",
-        falante: "Ricardo, Diretor Comercial",
-        descricao:
-            "Ricardo prometeu a um cliente que a empresa teria uma avaliação CMMI oficial em dois meses. " +
-            "O problema: quase nada está documentado e ninguém sabe se a empresa passaria.",
-        opcoes: [
-            {
-                texto: "Fazer primeiro uma avaliação de diagnóstico rápida para descobrir as lacunas.",
-                efeitos: { maturidade: 1, prazo: 1, orcamento: -1 },
-                resultado:
-                    "Em dois dias, o diagnóstico mostra exatamente o que falta. A empresa renegocia o prazo com o cliente usando dados concretos.",
-                conceito: "Tempo e custo: tipos de avaliação",
-                explicacao:
-                    "As avaliações oficiais do CMMI (método SCAMPI) têm três classes: C (diagnóstico, 1 a 2 dias), B (intermediária, 1 a 2 semanas) " +
-                    "e A (oficial, 2 a 3 semanas, válida por até 5 anos). Começar por uma avaliação leve reduz o risco da avaliação formal."
-            },
-            {
-                texto: "Montar uma força-tarefa para produzir toda a documentação às pressas.",
-                efeitos: { maturidade: 1, prazo: -2, qualidade: -1 },
-                resultado:
-                    "Surgem centenas de páginas que ninguém usa de verdade. Os projetos atrasam e fica claro que é só fachada.",
-                conceito: "Onde está o custo real",
-                explicacao:
-                    "O maior custo de uma avaliação CMMI está na preparação interna: reunir evidências objetivas de que os processos são realmente usados. " +
-                    "Documentação criada só para a avaliação não prova maturidade."
-            },
-            {
-                texto: "Adiar a avaliação e propor um cronograma realista.",
-                efeitos: { maturidade: 2, orcamento: -1 },
-                resultado:
-                    "O cliente fica frustrado com o adiamento, mas a empresa segue evoluindo de forma consistente, sem atalhos.",
-                conceito: "Tempo de implementação",
-                explicacao:
-                    "Implantar o CMMI não é rápido: estudos apontam de 18 a 24 meses para ver retorno. " +
-                    "Os benefícios existem, mas exigem tempo e constância."
-            }
-        ]
-    },
-    {
-        id: "heroi-pediu-demissao",
-        tipo: "crise",
-        titulo: "CRISE: o herói pediu demissão",
-        falante: "Marta, Diretora de TI",
-        descricao:
-            "Rafael, o desenvolvedor que \"sabia tudo\" do sistema mais importante da empresa, pediu demissão. " +
-            "Ele sai em duas semanas, e quase nada do que ele sabe está documentado.",
-        opcoes: [
-            {
-                texto: "Usar as duas semanas para registrar o conhecimento dele nos processos e na documentação da empresa.",
-                efeitos: { maturidade: 2, prazo: -2 },
-                resultado:
-                    "As entregas param por duas semanas, mas o conhecimento agora pertence à empresa, e não a uma pessoa.",
-                conceito: "Conhecimento organizacional",
-                explicacao:
-                    "Uma organização madura não depende de heróis: o conhecimento está nos processos, ativos e registros da organização. " +
-                    "Isso reduz o risco quando pessoas-chave saem."
-            },
-            {
-                texto: "Oferecer um grande aumento para ele ficar.",
-                efeitos: { orcamento: -2, prazo: 1 },
-                resultado:
-                    "Ele fica, por enquanto. O risco continua o mesmo e agora custa mais caro.",
-                conceito: "Risco de pessoa-chave",
-                explicacao:
-                    "Manter a pessoa resolve o sintoma, não a causa. Enquanto o conhecimento estiver só na cabeça de alguém, " +
-                    "a empresa continua vulnerável."
-            },
-            {
-                texto: "Contratar um substituto às pressas e torcer para dar certo.",
-                efeitos: { orcamento: -1, qualidade: -2 },
-                resultado:
-                    "O novato demora a entender o sistema, e os primeiros meses são cheios de falhas em produção.",
-                conceito: "Dependência de heróis",
-                explicacao:
-                    "Sem processos e documentação, cada saída de uma pessoa-chave vira uma crise. É o comportamento típico do Nível 1."
-            }
-        ]
-    },
-    {
-        id: "corte-de-orcamento",
-        tipo: "crise",
-        titulo: "CRISE: corte de 30% nos custos",
-        falante: "Carlos, CEO",
-        descricao:
-            "Um grande cliente cancelou o contrato, e a diretoria anuncia um corte de 30% nos custos. " +
-            "O programa de melhoria de processos está na lista.",
-        opcoes: [
-            {
-                texto: "Priorizar as áreas de prática com maior retorno e pausar o restante.",
-                efeitos: { orcamento: 2, maturidade: 1, prazo: -1 },
-                resultado:
-                    "O programa encolhe, mas mantém o essencial. Os resultados continuam aparecendo onde mais importa.",
-                conceito: "Priorização por objetivos",
-                explicacao:
-                    "A lógica da representação contínua ajuda em momentos de aperto: escolher as áreas de prática ligadas aos objetivos de " +
-                    "negócio mais urgentes e concentrar esforço nelas."
-            },
-            {
-                texto: "Cortar o programa inteiro.",
-                efeitos: { orcamento: 3, maturidade: -2, qualidade: -1 },
-                resultado:
-                    "O caixa respira, mas as práticas conquistadas começam a ser abandonadas.",
-                conceito: "Regressão de maturidade",
-                explicacao:
-                    "Maturidade não é permanente. Sem patrocínio e manutenção, as organizações voltam aos hábitos antigos."
-            },
-            {
-                texto: "Cortar treinamentos e revisões de qualidade, mantendo o resto.",
-                efeitos: { orcamento: 2, qualidade: -2 },
-                resultado:
-                    "A economia aparece rápido, e os defeitos também.",
-                conceito: "Custo da não qualidade",
-                explicacao:
-                    "Cortar atividades de qualidade costuma sair mais caro depois, com retrabalho, reclamações e perda de clientes."
-            }
-        ]
-    },
-    {
-        id: "incidente-seguranca",
-        tipo: "crise",
-        titulo: "CRISE: incidente de segurança",
-        falante: "Diego, Arquiteto de Software",
-        descricao:
-            "Um ataque explorou uma falha em um sistema entregue pela TechNova. Dados de clientes podem ter vazado, " +
-            "e a imprensa já está ligando.",
-        opcoes: [
-            {
-                texto: "Responder com um plano de incidentes e incluir práticas de segurança no processo de desenvolvimento.",
-                efeitos: { maturidade: 2, prazo: -1, orcamento: -1 },
-                resultado:
-                    "A resposta é rápida e transparente. Revisões de segurança passam a fazer parte de todo projeto.",
-                conceito: "Segurança no CMMI",
-                explicacao:
-                    "A versão atual do CMMI (V3.0) inclui um domínio de Segurança, com práticas para gerenciar ameaças e vulnerabilidades. " +
-                    "Segurança passa a fazer parte do processo, e não algo verificado só no fim."
-            },
-            {
-                texto: "Corrigir a falha em silêncio e seguir em frente.",
-                efeitos: { prazo: 1, qualidade: -2 },
-                resultado:
-                    "O caso vem a público semanas depois, e a omissão pesa mais do que a falha.",
-                conceito: "Transparência e processo",
-                explicacao:
-                    "Corrigir sem registrar nem analisar não evita que o problema se repita, e esconder o incidente destrói a confiança dos clientes."
-            },
-            {
-                texto: "Contratar uma empresa especializada para resolver tudo.",
-                efeitos: { orcamento: -2, qualidade: 1 },
-                resultado:
-                    "A falha é corrigida por especialistas, mas a TechNova não aprende nada com o incidente.",
-                conceito: "Terceirizar a solução",
-                explicacao:
-                    "Especialistas externos ajudam na crise, mas a maturidade vem de incorporar a lição nos próprios processos."
-            }
-        ]
-    },
-    {
-        id: "concorrente-lancou",
-        tipo: "crise",
-        titulo: "CRISE: o concorrente lançou primeiro",
-        falante: "Ricardo, Diretor Comercial",
-        descricao:
-            "O principal concorrente lançou um produto parecido com o que a TechNova está desenvolvendo. " +
-            "Ricardo quer lançar o nosso em duas semanas, \"do jeito que estiver\".",
-        opcoes: [
-            {
-                texto: "Usar os dados do projeto para negociar uma versão menor, planejada e testada.",
-                efeitos: { maturidade: 1, prazo: 1, qualidade: 1, orcamento: -1 },
-                resultado:
-                    "A versão enxuta sai em um mês, estável. Os clientes preferem a confiabilidade à pressa.",
-                conceito: "Planejamento sob pressão",
-                explicacao:
-                    "Processos maduros são mais valiosos justamente sob pressão: permitem negociar escopo com base em dados, " +
-                    "em vez de abandonar o processo."
-            },
-            {
-                texto: "Lançar em duas semanas, pulando testes e revisões.",
-                efeitos: { prazo: 2, qualidade: -2, maturidade: -1 },
-                resultado:
-                    "O produto sai no prazo e com muitos bugs. O suporte fica sobrecarregado.",
-                conceito: "Abandonar o processo na crise",
-                explicacao:
-                    "Se o processo é abandonado na primeira crise, ele não estava institucionalizado. O CMMI busca práticas que resistem à pressão."
-            },
-            {
-                texto: "Ignorar o concorrente e manter o cronograma original.",
-                efeitos: { orcamento: -2, qualidade: 1 },
-                resultado:
-                    "O produto sai impecável, mas o concorrente já conquistou boa parte do mercado.",
-                conceito: "Processo a serviço do negócio",
-                explicacao:
-                    "Maturidade não é rigidez: processos existem para apoiar os objetivos do negócio, e devem permitir respostas ágeis e controladas."
-            }
-        ]
-    }
-];
-
-// Desafio final: só aparece se o jogador chegar ao fim do capítulo 5 com a meta de maturidade.
-const DESAFIO_FINAL = {
-    id: "avaliacao-oficial",
-    tipo: "final",
-    titulo: "DESAFIO FINAL: a avaliação oficial",
-    falante: "Avaliadora líder certificada pelo CMMI Institute",
-    descricao:
-        "Chegou o dia. Durante três semanas, avaliadores oficiais vão entrevistar as equipes e analisar evidências para confirmar " +
-        "se a TechNova é Nível 5. Como você prepara a empresa?",
-    opcoes: [
-        {
-            texto: "Deixar que as equipes mostrem o trabalho do dia a dia, com dados e registros reais.",
-            efeitos: { qualidade: 1, prazo: -1 },
-            resultado:
-                "Os avaliadores encontram evidências consistentes em todos os projetos. Algumas melhorias são apontadas, mas nada que comprometa o resultado.",
-            conceito: "Avaliação SCAMPI A",
-            explicacao:
-                "A avaliação oficial (SCAMPI A) dura de 2 a 3 semanas e se baseia em evidências objetivas e entrevistas. " +
-                "Seu resultado é publicado no PARS e vale por até 5 anos."
-        },
-        {
-            texto: "Ensaiar respostas com as equipes e esconder os projetos problemáticos.",
-            efeitos: { prazo: -1 },
-            desfecho: "reprovado",
-            resultado:
-                "Nas entrevistas, as respostas ensaiadas não batem com os registros. Os avaliadores encontram os projetos escondidos.",
-            conceito: "Integridade da avaliação",
-            explicacao:
-                "Avaliadores cruzam entrevistas, documentos e registros. Inconsistências entre o que se diz e o que se faz são justamente " +
-                "o que a avaliação foi criada para encontrar."
-        },
-        {
-            texto: "Parar todos os projetos por três semanas para focar só na avaliação.",
-            efeitos: { prazo: -3, orcamento: -1 },
-            resultado:
-                "A avaliação corre bem, mas os clientes ficam três semanas sem entregas. Os avaliadores estranham: processos maduros não precisam parar a empresa.",
-            conceito: "Maturidade é o dia a dia",
-            explicacao:
-                "Numa organização madura, a avaliação observa o trabalho normal. Se é preciso parar tudo para ser avaliado, " +
-                "os processos ainda não fazem parte da rotina."
-        }
-    ]
-};
