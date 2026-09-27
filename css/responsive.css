@@ -1,0 +1,41 @@
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .tela {
+    padding: 16px;
+  }
+
+  .painel,
+  .cartao {
+    padding: 20px;
+  }
+
+  .hud {
+    padding: 15px;
+  }
+
+  .painel button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .lista-conceitos {
+    columns: 1;
+  }
+
+  .habilidade {
+    flex: 1 1 90px;
+    padding: 8px 6px;
+    font-size: 0.78rem;
+  }
+
+  .indicadores {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cartao-topo {
+    align-items: flex-start;
+  }
+}

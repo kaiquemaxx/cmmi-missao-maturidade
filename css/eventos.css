@@ -1,0 +1,96 @@
+.cartao {
+  width: 100%;
+  background-color: #181c26;
+  border: 1px solid #2a3040;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.cartao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cartao h2 {
+  margin-bottom: 10px;
+}
+
+.falante {
+  margin-bottom: 15px;
+  color: #9aa4ff;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.cartao p {
+  margin-bottom: 15px;
+  color: #c8ced8;
+}
+
+.etiqueta-situacao {
+  background-color: #24305e;
+  color: #9aa4ff;
+}
+
+.etiqueta-conhecimento {
+  background-color: #1e3d2b;
+  color: #6fd394;
+}
+
+.etiqueta-crise {
+  background-color: #4a1f22;
+  color: #ff8a8c;
+}
+
+.opcao {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: #10131a;
+  color: #ffffff;
+  border: 1px solid #2a3040;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.opcao:hover {
+  background-color: #202636;
+  border-color: #5865f2;
+}
+
+.opcao-previa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.opcao-previa.oculto {
+  display: none;
+}
+
+.opcao-previa .chip {
+  margin-top: 0;
+}
+
+.area-evento {
+  width: 100%;
+  max-width: 900px;
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.progresso {
+  color: #9aa4ff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}

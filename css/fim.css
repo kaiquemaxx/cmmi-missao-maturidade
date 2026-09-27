@@ -1,0 +1,28 @@
+#fim-titulo {
+  margin-bottom: 15px;
+}
+
+#fim-texto {
+  margin-bottom: 20px;
+  color: #c8ced8;
+}
+
+#fim-indicadores {
+  margin-bottom: 25px;
+}
+
+#fim-conceitos {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.lista-conceitos {
+  columns: 2;
+  column-gap: 30px;
+}
+
+.lista-conceitos li {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  color: #c8ced8;
+}

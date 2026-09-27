@@ -1,0 +1,56 @@
+.resultado-titulo {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.efeitos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.chip.positivo {
+  background-color: #1e3d2b;
+  color: #6fd394;
+}
+
+.chip.negativo {
+  background-color: #4a1f22;
+  color: #ff8a8c;
+}
+
+.explicacao {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 18px;
+  background-color: #10131a;
+  border: 1px solid #2a3040;
+  border-radius: 10px;
+}
+
+.explicacao h3 {
+  margin-bottom: 10px;
+}
+
+.explicacao p {
+  color: #c8ced8;
+}
+
+.aviso-reserva {
+  margin-top: 15px;
+  padding: 10px 12px;
+  background-color: #3b3218;
+  border: 1px solid #6d5a20;
+  border-radius: 8px;
+  color: #f0d56a;
+}

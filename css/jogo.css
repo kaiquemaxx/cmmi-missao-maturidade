@@ -1,0 +1,10 @@
+.tela-jogo {
+  width: 100%;
+}
+
+.tela-jogo.ativa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}

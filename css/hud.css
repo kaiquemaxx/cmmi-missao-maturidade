@@ -1,0 +1,103 @@
+.hud {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  background-color: #181c26;
+  border: 1px solid #2a3040;
+  border-radius: 12px;
+  padding: 15px 20px;
+}
+
+.consultor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #10131a;
+  border: 2px solid #5865f2;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.consultor-nome {
+  font-weight: bold;
+}
+
+.consultor-capitulo {
+  margin-top: 2px;
+  color: #9aa4ff;
+  font-size: 0.85rem;
+}
+
+.indicadores {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.indicador {
+  min-width: 0;
+}
+
+.indicador-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.indicador-valor {
+  font-weight: bold;
+}
+
+.barra {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  background-color: #2a3040;
+  border-radius: 999px;
+}
+
+.barra-preenchimento {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.indicador.perigo .indicador-topo {
+  color: #ff8a8c;
+}
+
+.indicador.perigo .barra-preenchimento {
+  background-color: #ff5c5f;
+}
+
+[data-indicador="maturidade"] .barra-preenchimento {
+  background-color: #9aa4ff;
+}
+
+[data-indicador="qualidade"] .barra-preenchimento {
+  background-color: #3ba55d;
+}
+
+[data-indicador="prazo"] .barra-preenchimento {
+  background-color: #f0b232;
+}
+
+[data-indicador="orcamento"] .barra-preenchimento {
+  background-color: #3aa7e0;
+}

@@ -1,0 +1,54 @@
+.habilidades {
+  width: 100%;
+  max-width: 900px;
+}
+
+.habilidades-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.habilidade {
+  flex: 1 1 180px;
+  padding: 12px 15px;
+  background-color: #181c26;
+  color: #ffffff;
+  border: 1px solid #2a3040;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.habilidade:hover {
+  background-color: #202636;
+}
+
+.habilidade.ativa {
+  border-color: #5865f2;
+  background-color: #202636;
+}
+
+.habilidade:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.habilidade-usos {
+  margin-left: 6px;
+  color: #9aa4ff;
+  font-weight: bold;
+}
+
+.habilidade-mensagem {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background-color: #10131a;
+  border: 1px solid #2a3040;
+  border-radius: 8px;
+  color: #c8ced8;
+}
+
+.oculto {
+  display: none;
+}
