@@ -1,0 +1,74 @@
+.painel {
+  width: 100%;
+  max-width: 700px;
+  background-color: #181c26;
+  border: 1px solid #2a3040;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: left;
+}
+
+.painel h2 {
+  margin-bottom: 20px;
+}
+
+.painel h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.painel p {
+  color: #c8ced8;
+}
+
+.lista-regras {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.lista-regras li {
+  margin-bottom: 8px;
+  color: #c8ced8;
+}
+
+.fluxo {
+  margin-top: 10px;
+  padding: 12px 15px;
+  background-color: #10131a;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.botao-principal,
+.botao-secundario {
+  width: 220px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-right: 10px;
+}
+
+.botao-principal {
+  border: none;
+  background-color: #5865f2;
+  color: #ffffff;
+}
+
+.botao-secundario {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #5865f2;
+}
+
+.botao-principal:hover,
+.botao-secundario:hover {
+  opacity: 0.85;
+}
+
+.botao-voltar {
+  margin-top: 25px;
+}
