@@ -216,6 +216,7 @@ button:hover {
 [data-indicador="qualidade"] .barra-preenchimento { background-color: #3ba55d; }
 [data-indicador="prazo"] .barra-preenchimento { background-color: #f0b232; }
 [data-indicador="orcamento"] .barra-preenchimento { background-color: #3aa7e0; }
+[data-indicador="moral"] .barra-preenchimento { background-color: #e27ad8; }
 
 .indicador.perigo .indicador-valor {
     color: #ed4245;
@@ -281,6 +282,7 @@ button:hover {
 .etiqueta-situacao { background-color: #24305e; color: #9aa4ff; }
 .etiqueta-conhecimento { background-color: #1e3d2b; color: #6fd394; }
 .etiqueta-crise { background-color: #4a1f22; color: #ff8a8c; }
+.etiqueta-final { background-color: #4a3a12; color: #f0b232; }
 
 .falante {
     font-style: italic;
@@ -473,10 +475,148 @@ button:hover {
     font-size: 0.8rem;
 }
 
-.aviso-reserva {
-    margin-top: -8px;
-    color: #6fd394 !important;
+/* Avisos e consequências atrasadas */
+
+.avisos {
+    list-style: none;
+    margin: -8px 0 15px;
+    color: #6fd394;
     font-size: 0.9rem;
+}
+
+.avisos li {
+    margin-bottom: 4px;
+}
+
+.tardios {
+    background-color: #2a2414;
+    border-left: 4px solid #f0b232;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+}
+
+.tardios h3 {
+    font-size: 0.95rem;
+    color: #f0b232;
+    margin-bottom: 6px;
+}
+
+.tardios ul {
+    list-style: none;
+    color: #d0d5de;
+    font-size: 0.9rem;
+}
+
+.tardios li {
+    margin-bottom: 6px;
+}
+
+.efeitos-inline {
+    display: inline-flex;
+    margin: 0;
+    gap: 6px;
+    vertical-align: middle;
+}
+
+.efeitos-inline .chip {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+}
+
+.pendentes {
+    font-size: 0.8rem;
+    color: #f0b232;
+}
+
+/* Dificuldade, pontuação e recorde */
+
+.dificuldades {
+    border: none;
+    margin: -20px auto 30px;
+    max-width: 560px;
+}
+
+.dificuldades legend {
+    color: #b7bdc8;
+    margin: 0 auto 10px;
+    font-size: 0.9rem;
+}
+
+.dificuldades-opcoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.dificuldade {
+    flex: 1 1 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border: 1px solid #353d52;
+    border-radius: 8px;
+    background-color: #181c26;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dificuldade input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dificuldade small {
+    color: #b7bdc8;
+    font-size: 0.78rem;
+}
+
+.dificuldade:has(input:checked) {
+    border-color: #5865f2;
+    background-color: #1b2135;
+}
+
+.dificuldade:has(input:focus-visible) {
+    outline: 2px solid #9aa4ff;
+    outline-offset: 2px;
+}
+
+.recorde {
+    color: #f0b232;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.pontuacao {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.pontuacao-valor {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #9aa4ff;
+}
+
+.pontuacao .recorde {
+    margin-bottom: 0;
+}
+
+/* Foco */
+
+button:focus-visible {
+    outline: 2px solid #9aa4ff;
+    outline-offset: 2px;
+}
+
+[tabindex="-1"]:focus {
+    outline: none;
 }
 
 .lista-conceitos {
