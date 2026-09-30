@@ -67,11 +67,11 @@
   border-color: #5865f2;
 }
 
-.opcao-previa {
+.opcao .opcao-previa {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 10px;
+  margin: 10px 0 0;
 }
 
 .opcao-previa.oculto {
