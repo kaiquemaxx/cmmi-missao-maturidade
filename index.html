@@ -6,6 +6,10 @@
 
     <title>CMMI: Missão Maturidade</title>
 
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/tela-inicial.css" />
@@ -20,252 +24,279 @@
     <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
-    <main id="tela-inicial" class="tela tela-centralizada ativa">
-      <div class="conteudo tela-inicial-conteudo">
-        <span class="titulo-superior">Jogo educacional sobre CMMI</span>
+    <main id="app">
+      <!-- Tela inicial -->
+      <section
+        id="tela-inicial"
+        class="tela tela-centralizada ativa"
+        aria-labelledby="titulo-jogo"
+      >
+        <div class="conteudo tela-inicial-conteudo">
+          <span class="titulo-superior">Jogo educacional sobre CMMI</span>
 
-        <h1>CMMI: Missão Maturidade</h1>
+          <h1 id="titulo-jogo" tabindex="-1">CMMI: Missão Maturidade</h1>
 
-        <p class="subtitulo">
-          Assuma o papel de consultor de processos e ajude uma empresa de
-          tecnologia a evoluir sua maturidade.
-        </p>
-
-        <div class="menu">
-          <button id="botao-iniciar" class="botao-principal">
-            Iniciar Jogo
-          </button>
-
-          <button id="botao-como-jogar" class="botao-secundario">
-            Como Jogar
-          </button>
-        </div>
-      </div>
-    </main>
-
-    <!-- Como jogar -->
-    <main id="tela-como-jogar" class="tela tela-centralizada">
-      <div class="conteudo painel">
-        <h2>Como Jogar</h2>
-
-        <p>
-          Você é um consultor de melhoria de processos contratado pela
-          <strong>TechNova Sistemas</strong>, uma empresa de tecnologia com
-          atrasos, retrabalho, falta de documentação e nenhuma padronização.
-        </p>
-
-        <h3>Indicadores</h3>
-        <ul class="lista-regras">
-          <li>
-            <strong>Maturidade:</strong> o quanto os processos da empresa
-            evoluíram segundo o CMMI.
-          </li>
-          <li>
-            <strong>Qualidade:</strong> defeitos, retrabalho e satisfação com as
-            entregas.
-          </li>
-          <li>
-            <strong>Prazo:</strong> capacidade de entregar dentro do cronograma.
-          </li>
-          <li><strong>Orçamento:</strong> saúde financeira dos projetos.</li>
-        </ul>
-
-        <h3>Fluxo</h3>
-        <p class="fluxo">
-          Evento → Decisão → Consequência → Explicação → Próximo evento
-        </p>
-
-        <h3>Capítulos</h3>
-        <p>
-          A campanha tem 5 capítulos, um para cada nível de maturidade do CMMI:
-          Caos, Controle, Padronização, Medição e Melhoria. Cada capítulo tem
-          uma meta de Maturidade. Se você alcançar a meta, a empresa colhe os
-          benefícios: +1 em Qualidade, Prazo e Orçamento. Crises inesperadas
-          podem surgir no caminho.
-        </p>
-
-        <h3>Habilidades</h3>
-        <ul class="lista-regras">
-          <li>
-            <strong>Auditoria Interna (2x):</strong> revela as consequências de
-            cada opção antes de decidir.
-          </li>
-          <li>
-            <strong>Reserva de Orçamento (1x):</strong> evita a próxima perda de
-            orçamento.
-          </li>
-          <li>
-            <strong>Replanejamento (1x):</strong> recupera 2 pontos de prazo.
-          </li>
-        </ul>
-
-        <h3>Vitória e derrota</h3>
-        <ul class="lista-regras">
-          <li>
-            Cada decisão melhora alguns indicadores e pode prejudicar outros.
-            Busque equilíbrio.
-          </li>
-          <li>
-            Se <strong>Qualidade</strong>, <strong>Prazo</strong> ou
-            <strong>Orçamento</strong> chegar a 0, você perde.
-          </li>
-          <li>
-            Chegue ao fim do capítulo 5 com
-            <strong>15 de Maturidade</strong> para enfrentar o desafio final: a
-            avaliação oficial de Nível 5.
-          </li>
-          <li>
-            O final da história depende das suas decisões e dos indicadores da
-            empresa.
-          </li>
-        </ul>
-
-        <button class="botao-principal botao-voltar">Voltar</button>
-      </div>
-    </main>
-
-    <!-- Introdução / conclusão de capítulo -->
-    <main id="tela-capitulo" class="tela tela-centralizada">
-      <div class="conteudo painel">
-        <div id="capitulo-resumo" class="capitulo-resumo oculto">
-          <h3 id="resumo-titulo"></h3>
-          <p id="resumo-texto"></p>
-          <div id="resumo-efeitos" class="efeitos"></div>
-        </div>
-
-        <span id="capitulo-numero" class="etiqueta"></span>
-        <h2 id="capitulo-nome" class="capitulo-nome"></h2>
-        <p id="capitulo-nivel" class="capitulo-nivel"></p>
-        <p id="capitulo-introducao"></p>
-        <p id="capitulo-meta" class="capitulo-meta"></p>
-
-        <button id="botao-comecar-capitulo" class="botao-principal">
-          Começar
-        </button>
-      </div>
-    </main>
-
-    <!-- Tela do jogo -->
-    <main id="tela-jogo" class="tela tela-jogo">
-      <header class="hud">
-        <div class="consultor">
-          <div class="avatar" aria-hidden="true">💼</div>
-          <div>
-            <div class="consultor-nome">Consultor(a) de Processos</div>
-            <div id="capitulo" class="consultor-capitulo"></div>
-          </div>
-        </div>
-
-        <div class="indicadores">
-          <div class="indicador" data-indicador="maturidade">
-            <div class="indicador-topo">
-              <span>Maturidade</span>
-              <span class="indicador-valor"></span>
-            </div>
-            <div class="barra"><div class="barra-preenchimento"></div></div>
-          </div>
-          <div class="indicador" data-indicador="qualidade">
-            <div class="indicador-topo">
-              <span>Qualidade</span>
-              <span class="indicador-valor"></span>
-            </div>
-            <div class="barra"><div class="barra-preenchimento"></div></div>
-          </div>
-          <div class="indicador" data-indicador="prazo">
-            <div class="indicador-topo">
-              <span>Prazo</span>
-              <span class="indicador-valor"></span>
-            </div>
-            <div class="barra"><div class="barra-preenchimento"></div></div>
-          </div>
-          <div class="indicador" data-indicador="orcamento">
-            <div class="indicador-topo">
-              <span>Orçamento</span>
-              <span class="indicador-valor"></span>
-            </div>
-            <div class="barra"><div class="barra-preenchimento"></div></div>
-          </div>
-        </div>
-      </header>
-
-      <section class="habilidades">
-        <div class="habilidades-botoes">
-          <button
-            class="habilidade"
-            data-habilidade="auditoria"
-            title="Revela as consequências de cada opção do evento atual."
-          >
-            🔍 Auditoria Interna <span class="habilidade-usos"></span>
-          </button>
-          <button
-            class="habilidade"
-            data-habilidade="reserva"
-            title="Evita a próxima perda de orçamento."
-          >
-            💰 Reserva de Orçamento <span class="habilidade-usos"></span>
-          </button>
-          <button
-            class="habilidade"
-            data-habilidade="replanejamento"
-            title="Recupera 2 pontos de prazo."
-          >
-            📅 Replanejamento <span class="habilidade-usos"></span>
-          </button>
-        </div>
-        <p id="habilidade-mensagem" class="habilidade-mensagem oculto"></p>
-      </section>
-
-      <section class="area-evento">
-        <!-- Evento + decisão -->
-        <article id="cartao-evento" class="cartao">
-          <div class="cartao-topo">
-            <span id="evento-tipo" class="etiqueta"></span>
-            <span id="evento-progresso" class="progresso"></span>
-          </div>
-          <h2 id="evento-titulo"></h2>
-          <p id="evento-falante" class="falante"></p>
-          <p id="evento-descricao"></p>
-          <div id="opcoes" class="opcoes"></div>
-        </article>
-
-        <!-- Consequência + explicação -->
-        <article id="cartao-resultado" class="cartao oculto">
-          <span class="etiqueta">Consequência</span>
-          <h2 id="resultado-titulo" class="resultado-titulo"></h2>
-          <p id="resultado-texto"></p>
-          <div id="resultado-efeitos" class="efeitos"></div>
-          <p id="resultado-reserva" class="aviso-reserva oculto">
-            💰 A Reserva de Orçamento evitou a perda de orçamento desta decisão.
+          <p class="subtitulo">
+            Assuma o papel de consultor de processos e ajude uma empresa de
+            tecnologia a evoluir sua maturidade.
           </p>
 
-          <div class="explicacao">
-            <h3>📘 <span id="explicacao-conceito"></span></h3>
-            <p id="explicacao-texto"></p>
+          <fieldset class="dificuldades">
+            <legend>Dificuldade</legend>
+            <div id="opcoes-dificuldade" class="dificuldades-opcoes"></div>
+          </fieldset>
+
+          <p id="recorde-inicial" class="recorde"></p>
+
+          <div class="menu">
+            <button id="botao-iniciar" class="botao-principal" type="button">
+              Iniciar Jogo
+            </button>
+
+            <button
+              id="botao-como-jogar"
+              class="botao-secundario"
+              type="button"
+            >
+              Como Jogar
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Como jogar -->
+      <section
+        id="tela-como-jogar"
+        class="tela tela-centralizada"
+        aria-labelledby="titulo-como-jogar"
+      >
+        <div class="conteudo painel">
+          <h2 id="titulo-como-jogar" tabindex="-1">Como Jogar</h2>
+
+          <p>
+            Você é um consultor de melhoria de processos contratado pela
+            <strong>TechNova Sistemas</strong>, uma empresa de tecnologia com
+            atrasos, retrabalho, falta de documentação e nenhuma padronização.
+          </p>
+
+          <h3>Indicadores</h3>
+          <ul class="lista-regras">
+            <li>
+              <strong>Maturidade:</strong> o quanto os processos da empresa
+              evoluíram segundo o CMMI.
+            </li>
+            <li>
+              <strong>Qualidade:</strong> defeitos, retrabalho e satisfação com
+              as entregas.
+            </li>
+            <li>
+              <strong>Prazo:</strong> capacidade de entregar dentro do
+              cronograma.
+            </li>
+            <li><strong>Orçamento:</strong> saúde financeira dos projetos.</li>
+            <li>
+              <strong>Moral:</strong> motivação da equipe. Com Moral em 3 ou
+              menos, cada ganho de Maturidade rende 1 ponto a menos.
+            </li>
+          </ul>
+
+          <h3>Fluxo</h3>
+          <p class="fluxo">
+            Evento → Decisão → Consequência → Explicação → Próximo evento
+          </p>
+
+          <h3>Capítulos</h3>
+          <p>
+            A campanha tem 5 capítulos, um para cada nível de maturidade do
+            CMMI: Caos, Controle, Padronização, Medição e Melhoria. Cada
+            capítulo tem uma meta de Maturidade. Se você alcançar a meta, a
+            empresa colhe os benefícios: +1 em Qualidade, Prazo, Orçamento e
+            Moral. Crises inesperadas podem surgir no caminho.
+          </p>
+
+          <h3>Decisões têm memória</h3>
+          <ul class="lista-regras">
+            <li>
+              <strong>Consequências atrasadas:</strong> algumas decisões cobram
+              o preço (ou dão o retorno) uma ou duas decisões depois. O ⏳ no
+              painel mostra quantas estão a caminho.
+            </li>
+            <li>
+              <strong>Efeitos condicionais:</strong> algumas opções rendem mais
+              quando a empresa já está bem em um indicador.
+            </li>
+            <li>Atalhos que parecem ótimos agora podem sair caros depois.</li>
+          </ul>
+
+          <h3>Habilidades</h3>
+          <ul class="lista-regras">
+            <li>
+              <strong>Auditoria Interna:</strong> revela as consequências
+              imediatas de cada opção antes de decidir.
+            </li>
+            <li>
+              <strong>Reserva de Orçamento:</strong> evita a próxima perda de
+              orçamento.
+            </li>
+            <li>
+              <strong>Replanejamento:</strong> recupera 2 pontos de prazo.
+            </li>
+            <li>A quantidade de usos depende da dificuldade.</li>
+          </ul>
+
+          <h3>Vitória e derrota</h3>
+          <ul class="lista-regras">
+            <li>
+              Cada decisão melhora alguns indicadores e pode prejudicar outros.
+              Busque equilíbrio.
+            </li>
+            <li>
+              Se <strong>Qualidade</strong>, <strong>Prazo</strong>,
+              <strong>Orçamento</strong> ou <strong>Moral</strong> chegar a 0,
+              você perde.
+            </li>
+            <li>
+              Chegue ao fim do capítulo 5 com
+              <strong>15 de Maturidade</strong> para enfrentar o desafio final:
+              a avaliação oficial de Nível 5.
+            </li>
+            <li>
+              O final e a pontuação dependem das suas decisões, dos indicadores
+              e da dificuldade. Seu recorde fica salvo neste navegador.
+            </li>
+          </ul>
+
+          <button class="botao-principal botao-voltar" type="button">
+            Voltar
+          </button>
+        </div>
+      </section>
+
+      <!-- Introdução / conclusão de capítulo -->
+      <section
+        id="tela-capitulo"
+        class="tela tela-centralizada"
+        aria-labelledby="capitulo-nome"
+      >
+        <div class="conteudo painel">
+          <div id="capitulo-resumo" class="capitulo-resumo oculto">
+            <h3 id="resumo-titulo"></h3>
+            <p id="resumo-texto"></p>
+            <div id="resumo-efeitos" class="efeitos"></div>
           </div>
 
-          <button id="botao-proximo" class="botao-principal">
-            Próximo evento
+          <span id="capitulo-numero" class="etiqueta"></span>
+          <h2 id="capitulo-nome" class="capitulo-nome" tabindex="-1"></h2>
+          <p id="capitulo-nivel" class="capitulo-nivel"></p>
+          <p id="capitulo-introducao"></p>
+          <p id="capitulo-meta" class="capitulo-meta"></p>
+
+          <button
+            id="botao-comecar-capitulo"
+            class="botao-principal"
+            type="button"
+          >
+            Começar
           </button>
-        </article>
+        </div>
+      </section>
+
+      <!-- Tela do jogo -->
+      <section
+        id="tela-jogo"
+        class="tela tela-jogo"
+        aria-labelledby="evento-titulo"
+      >
+        <header class="hud">
+          <div class="consultor">
+            <div class="avatar" aria-hidden="true">💼</div>
+            <div>
+              <div class="consultor-nome">Consultor(a) de Processos</div>
+              <div id="capitulo" class="consultor-capitulo"></div>
+              <div id="pendentes" class="pendentes oculto"></div>
+            </div>
+          </div>
+
+          <div id="indicadores" class="indicadores"></div>
+        </header>
+
+        <section class="habilidades" aria-label="Habilidades">
+          <div id="habilidades-botoes" class="habilidades-botoes"></div>
+          <p
+            id="habilidade-mensagem"
+            class="habilidade-mensagem oculto"
+            role="status"
+          ></p>
+        </section>
+
+        <section class="area-evento">
+          <!-- Evento + decisão -->
+          <article id="cartao-evento" class="cartao">
+            <div class="cartao-topo">
+              <span id="evento-tipo" class="etiqueta"></span>
+              <span id="evento-progresso" class="progresso"></span>
+            </div>
+            <h2 id="evento-titulo" tabindex="-1"></h2>
+            <p id="evento-falante" class="falante"></p>
+            <p id="evento-descricao"></p>
+            <div id="opcoes" class="opcoes"></div>
+          </article>
+
+          <!-- Consequência + explicação -->
+          <article id="cartao-resultado" class="cartao oculto" aria-live="polite">
+            <span class="etiqueta">Consequência</span>
+            <h2
+              id="resultado-titulo"
+              class="resultado-titulo"
+              tabindex="-1"
+            ></h2>
+            <p id="resultado-texto"></p>
+            <div id="resultado-efeitos" class="efeitos"></div>
+            <ul id="resultado-avisos" class="avisos"></ul>
+
+            <div id="resultado-tardios" class="tardios oculto">
+              <h3>⏳ Consequências de decisões anteriores</h3>
+              <ul id="resultado-tardios-lista"></ul>
+            </div>
+
+            <div class="explicacao">
+              <h3>📘 <span id="explicacao-conceito"></span></h3>
+              <p id="explicacao-texto"></p>
+            </div>
+
+            <button id="botao-proximo" class="botao-principal" type="button">
+              Próximo evento
+            </button>
+          </article>
+        </section>
+      </section>
+
+      <!-- Fim de jogo -->
+      <section
+        id="tela-fim"
+        class="tela tela-centralizada"
+        aria-labelledby="fim-titulo"
+      >
+        <div class="conteudo painel">
+          <h2 id="fim-titulo" tabindex="-1"></h2>
+          <p id="fim-texto"></p>
+          <div id="fim-indicadores" class="efeitos"></div>
+          <div class="pontuacao">
+            <span id="fim-pontos" class="pontuacao-valor"></span>
+            <span id="fim-recorde" class="recorde"></span>
+          </div>
+          <h3>Conceitos de CMMI que você viu</h3>
+          <ul id="fim-conceitos" class="lista-regras lista-conceitos"></ul>
+          <button id="botao-reiniciar" class="botao-principal" type="button">
+            Jogar novamente
+          </button>
+          <button class="botao-secundario botao-voltar" type="button">
+            Menu inicial
+          </button>
+        </div>
       </section>
     </main>
 
-    <!-- Fim de jogo -->
-    <main id="tela-fim" class="tela tela-centralizada">
-      <div class="conteudo painel">
-        <h2 id="fim-titulo"></h2>
-        <p id="fim-texto"></p>
-        <div id="fim-indicadores" class="efeitos"></div>
-        <h3>Conceitos de CMMI que você viu</h3>
-        <ul id="fim-conceitos" class="lista-regras lista-conceitos"></ul>
-        <button id="botao-reiniciar" class="botao-principal">
-          Jogar novamente
-        </button>
-        <button class="botao-secundario botao-voltar">Menu inicial</button>
-      </div>
-    </main>
-
-    <script src="js/eventos.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

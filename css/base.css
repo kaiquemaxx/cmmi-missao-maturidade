@@ -17,3 +17,12 @@ ul {
 strong {
   font-weight: 700;
 }
+
+button:focus-visible {
+  outline: 2px solid #9aa4ff;
+  outline-offset: 2px;
+}
+
+[tabindex="-1"]:focus {
+  outline: none;
+}

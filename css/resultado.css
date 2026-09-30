@@ -29,6 +29,18 @@
   color: #ff8a8c;
 }
 
+.efeitos-inline {
+  display: inline-flex;
+  margin: 0;
+  gap: 6px;
+  vertical-align: middle;
+}
+
+.efeitos-inline .chip {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
+
 .explicacao {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -46,11 +58,48 @@
   color: #c8ced8;
 }
 
-.aviso-reserva {
-  margin-top: 15px;
+.avisos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.avisos:empty {
+  display: none;
+}
+
+.avisos li {
   padding: 10px 12px;
   background-color: #3b3218;
   border: 1px solid #6d5a20;
   border-radius: 8px;
   color: #f0d56a;
+}
+
+.tardios {
+  margin-bottom: 20px;
+  padding: 18px;
+  background-color: #2a2414;
+  border: 1px solid #6d5a20;
+  border-radius: 10px;
+}
+
+.tardios h3 {
+  margin-bottom: 10px;
+  color: #f0b232;
+  font-size: 0.95rem;
+}
+
+.tardios ul {
+  padding: 0;
+  list-style: none;
+  color: #c8ced8;
+  font-size: 0.9rem;
+}
+
+.tardios li {
+  margin-bottom: 6px;
 }

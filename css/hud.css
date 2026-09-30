@@ -39,6 +39,12 @@
   font-size: 0.85rem;
 }
 
+.pendentes {
+  margin-top: 2px;
+  color: #f0b232;
+  font-size: 0.8rem;
+}
+
 .indicadores {
   flex: 1 1 260px;
   min-width: 0;
@@ -100,4 +106,8 @@
 
 [data-indicador="orcamento"] .barra-preenchimento {
   background-color: #3aa7e0;
+}
+
+[data-indicador="moral"] .barra-preenchimento {
+  background-color: #e27ad8;
 }

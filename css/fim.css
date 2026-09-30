@@ -26,3 +26,21 @@
   margin-bottom: 8px;
   color: #c8ced8;
 }
+
+.pontuacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pontuacao-valor {
+  color: #9aa4ff;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.pontuacao .recorde {
+  margin-bottom: 0;
+}

@@ -61,3 +61,67 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 }
+
+.dificuldades {
+  max-width: 560px;
+  margin: -20px auto 30px;
+  border: none;
+}
+
+.dificuldades legend {
+  margin: 0 auto 10px;
+  color: #b7bdc8;
+  font-size: 0.9rem;
+}
+
+.dificuldades-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dificuldade {
+  flex: 1 1 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background-color: #181c26;
+  border: 1px solid #2a3040;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dificuldade:hover {
+  background-color: #202636;
+}
+
+.dificuldade input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dificuldade small {
+  color: #b7bdc8;
+  font-size: 0.78rem;
+}
+
+.dificuldade:has(input:checked) {
+  background-color: #202636;
+  border-color: #5865f2;
+}
+
+.dificuldade:has(input:focus-visible) {
+  outline: 2px solid #9aa4ff;
+  outline-offset: 2px;
+}
+
+.recorde {
+  margin-bottom: 20px;
+  color: #f0b232;
+  font-size: 0.9rem;
+}
